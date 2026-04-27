@@ -1,0 +1,1 @@
+CREATE UNIQUE INDEX `gamification_events_unique` ON `gamification_events` (`user_id`,`event_type`,`reference_id`);

@@ -1,4 +1,4 @@
-import { sqliteTable, text, integer, real } from "drizzle-orm/sqlite-core";
+import { sqliteTable, text, integer, real, uniqueIndex } from "drizzle-orm/sqlite-core";
 
 export enum UserRole {
   Student = "student",
@@ -237,6 +237,35 @@ export const coupons = sqliteTable("coupons", {
   createdAt: text("created_at")
     .notNull()
     .$defaultFn(() => new Date().toISOString()),
+});
+
+export const gamificationEvents = sqliteTable(
+  "gamification_events",
+  {
+    id: integer("id").primaryKey({ autoIncrement: true }),
+    userId: integer("user_id")
+      .notNull()
+      .references(() => users.id),
+    eventType: text("event_type").notNull(),
+    referenceId: integer("reference_id").notNull(),
+    createdAt: text("created_at")
+      .notNull()
+      .$defaultFn(() => new Date().toISOString()),
+  },
+  (t) => [uniqueIndex("gamification_events_unique").on(t.userId, t.eventType, t.referenceId)]
+);
+
+export const userGamification = sqliteTable("user_gamification", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  userId: integer("user_id")
+    .notNull()
+    .unique()
+    .references(() => users.id),
+  totalPoints: integer("total_points").notNull().default(0),
+  currentLevel: integer("current_level").notNull().default(1),
+  currentStreak: integer("current_streak").notNull().default(0),
+  longestStreak: integer("longest_streak").notNull().default(0),
+  lastActivityDate: text("last_activity_date"),
 });
 
 export const videoWatchEvents = sqliteTable("video_watch_events", {

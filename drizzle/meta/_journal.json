@@ -29,6 +29,20 @@
       "when": 1777271168028,
       "tag": "0003_worried_thaddeus_ross",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1777277795401,
+      "tag": "0004_sloppy_starhawk",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1777277812137,
+      "tag": "0005_groovy_silvermane",
+      "breakpoints": true
     }
   ]
 }
